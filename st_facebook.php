@@ -70,7 +70,9 @@ class ST_Facebook extends WP_Widget {
 				<input type="checkbox" 
 					id="<?php echo $this->get_field_id('facebook_faces'); ?>"
 					name="<?php echo $this->get_field_name('facebook_faces'); ?>" 
-					<?php echo ($facebook_faces) ? "checked" : ""; ?>
+					<?php if(isset($facebook_faces)) : ?>
+						<?php echo ($facebook_faces) ? "checked" : ""; ?>
+					<?php endif; ?>
 					/>
 					Gesichter anzeigen?
 			</label>
