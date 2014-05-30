@@ -1,10 +1,9 @@
 <?php
-error_reporting(E_ALL);
 /**
  * Plugin Name: ST Widgets - Facebook
  * Plugin URI: http://stinformatik.eu
  * Description: Displays Facebook Like Box
- * Version: 0.5
+ * Version: 0.6
  * Author: Johannes Reß
  * Author URI: http://johannesress.com
  * License: No licensing
@@ -77,6 +76,18 @@ class ST_Facebook extends WP_Widget {
 					Gesichter anzeigen?
 			</label>
 		</p>
+		<p>
+			<label for="<?php echo $this->get_field_id('facebook_feed'); ?>">
+				<input type="checkbox" 
+					id="<?php echo $this->get_field_id('facebook_feed'); ?>"
+					name="<?php echo $this->get_field_name('facebook_feed'); ?>" 
+					<?php if(isset($facebook_feed)) : ?>
+						<?php echo ($facebook_feed) ? "checked" : ""; ?>
+					<?php endif; ?>
+					/>
+					Feed anzeigen?
+			</label>
+		</p>
 
 		<?php
 	}
@@ -104,10 +115,16 @@ class ST_Facebook extends WP_Widget {
 
 		if( empty($facebook_color) ) $facebook_color = 'white';
 
-		if($facebook_faces) {
+		if(isset($facebook_faces)) {
 			$faces = "true";
 		} else {
 			$faces = "false";
+		}
+
+		if(isset($facebook_stream)) {
+			$stream = "true";
+		} else {
+			$stream = "false";
 		}
 
 		echo $before_widget . "<div class='st-facebook-widget'>" ;
@@ -116,7 +133,7 @@ class ST_Facebook extends WP_Widget {
 			echo $before_title . $title . $after_title;
 		}
 			echo '<div style="background-color: '.$facebook_color.'; padding-right: 5px;">';
-				echo '<div class="fb-like-box" data-href="http://www.facebook.com/'.$facebook_username.'" data-width="'.$facebook_width.'" data-height="'.$facebook_height.'" data-colorscheme="light" data-show-faces="'.$faces.'" data-header="false" data-stream="false" data-show-border="false"></div>';
+				echo '<div class="fb-like-box" data-href="http://www.facebook.com/'.$facebook_username.'" data-width="'.$facebook_width.'" data-height="'.$facebook_height.'" data-colorscheme="light" data-show-faces="'.$faces.'" data-header="false" data-stream="'.$stream.'" data-show-border="false"></div>';
 			echo '</div>';
 		echo "</div>".$after_widget;
 	}
